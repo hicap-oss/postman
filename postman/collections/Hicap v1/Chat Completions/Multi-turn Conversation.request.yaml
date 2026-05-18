@@ -1,0 +1,72 @@
+$kind: http-request
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"My name is Javier.\"},{\"role\":\"assistant\",\"content\":\"Hello Javier! How can I help you?\"},{\"role\":\"user\",\"content\":\"What is my name?\"}]}'"
+url: "{{base_url}}/chat/completions"
+method: POST
+headers:
+  api-key: "{{api-key}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"model\": \"gpt-4o\",\r
+
+    \    \"messages\": [\r
+
+    \        {\r
+
+    \            \"role\": \"user\",\r
+
+    \            \"content\": \"My name is Javier.\"\r
+
+    \        },\r
+
+    \        {\r
+
+    \            \"role\": \"assistant\",\r
+
+    \            \"content\": \"Hello Javier! How can I help you?\"\r
+
+    \        },\r
+
+    \        {\r
+
+    \            \"role\": \"user\",\r
+
+    \            \"content\": \"What is my name?\"\r
+
+    \        }\r
+
+    \    ]\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      })
+
+      pm.test('Response has choices array', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('choices').that.is.an('array').with.length.above(0);
+      })
+
+      pm.test('Assistant reply is a non-empty string', function () {
+          const json = pm.response.json();
+          const content = json.choices[0].message.content;
+          pm.expect(content).to.be.a('string').and.to.have.length.above(0);
+      })
+
+      pm.test('Response has object type chat.completion', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('object').that.equals('chat.completion');
+      })
+
+      pm.test('Response has usage object', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('usage');
+          pm.expect(json.usage).to.have.property('total_tokens').that.is.a('number');
+      })
+    language: text/javascript
+order: 3000

@@ -1,0 +1,30 @@
+$kind: http-request
+description: "Generated from cURL: curl -X POST \"{{base_url}}/audio/speech\" -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"tts-1\",\"input\":\"Hello, this is a test of the Hicap text to speech API.\",\"voice\":\"alloy\",\"response_format\":\"mp3\"}'"
+url: "{{base_url}}/audio/speech"
+method: POST
+headers:
+  Authorization: Bearer {{api-key}}
+  Content-Type: application/json
+  api-key: "{{api-key}}"
+body:
+  type: json
+  content: '{"model":"gpt-4o","input":"Hello, this is a test of the Hicap text to speech API.","voice":"alloy","response_format":"mp3"}'
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      })
+
+      pm.test('Response is audio content', function () {
+          const contentType = pm.response.headers.get('Content-Type');
+          pm.expect(contentType).to.satisfy(function (ct) {
+              return ct.includes('audio/') || ct.includes('application/octet-stream');
+          }, 'Expected audio content type');
+      })
+
+      pm.test('Response body is not empty', function () {
+          pm.expect(pm.response.responseSize).to.be.above(0);
+      })
+    language: text/javascript
+order: 1000

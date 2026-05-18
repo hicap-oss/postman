@@ -1,0 +1,74 @@
+$kind: http-request
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant.\"},{\"role\":\"user\",\"content\":\"What is the capital of France?\"}],\"temperature\":0.7,\"max_completion_tokens\":256}'"
+url: "{{base_url}}/chat/completions"
+method: POST
+headers:
+  api-key: "{{api-key}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"model\": \"gpt-4o\",\r
+
+    \    \"messages\": [\r
+
+    \        {\r
+
+    \            \"role\": \"system\",\r
+
+    \            \"content\": \"You are a helpful assistant.\"\r
+
+    \        },\r
+
+    \        {\r
+
+    \            \"role\": \"user\",\r
+
+    \            \"content\": \"What is the capital of France?\"\r
+
+    \        }\r
+
+    \    ],\r
+
+    \    \"temperature\": 0.7,\r
+
+    \    \"max_completion_tokens\": 256\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      })
+
+      pm.test('Response has id field', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('id');
+      })
+
+      pm.test('Response has choices array', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('choices').that.is.an('array').with.length.above(0);
+      })
+
+      pm.test('First choice has assistant message', function () {
+          const json = pm.response.json();
+          pm.expect(json.choices[0].message).to.have.property('role').that.equals('assistant');
+          pm.expect(json.choices[0].message).to.have.property('content').that.is.a('string');
+      })
+
+      pm.test('Response has usage object', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('usage');
+          pm.expect(json.usage).to.have.property('prompt_tokens').that.is.a('number');
+          pm.expect(json.usage).to.have.property('completion_tokens').that.is.a('number');
+      })
+
+      pm.test('Finish reason is stop', function () {
+          const json = pm.response.json();
+          pm.expect(json.choices[0]).to.have.property('finish_reason').that.equals('stop');
+      })
+    language: text/javascript
+order: 2000

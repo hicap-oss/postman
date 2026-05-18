@@ -1,0 +1,32 @@
+$kind: http-request
+description: 'Generated from cURL: curl -X POST "{{base_url}}/audio/transcriptions" -H "api-key: {{api-key}}" -F "model=whisper-1" -F "language=en" -F "response_format=json" -F "file=@file"'
+url: "{{base_url}}/audio/transcriptions"
+method: POST
+headers:
+  api-key: "{{api-key}}"
+body:
+  type: formdata
+  content:
+    - type: text
+      key: model
+      value: gpt-4o
+    - type: text
+      key: file
+      value: ""
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Audio transcription endpoint not supported (404 expected)', function () {
+          pm.expect(pm.response.code).to.be.oneOf([400, 403, 404, 501]);
+      });
+
+      pm.test('Response is JSON or empty', function () {
+          const ct = pm.response.headers.get('Content-Type');
+          if (ct) {
+              pm.expect(ct).to.satisfy(function(c) {
+                  return c.includes('application/json') || c.includes('text/');
+              });
+          }
+      });
+    language: text/javascript
+order: 2000

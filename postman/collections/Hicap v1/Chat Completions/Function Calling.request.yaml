@@ -1,0 +1,108 @@
+$kind: http-request
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"What is the weather in Madrid?\"}],\"tools\":[{\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"description\":\"Get the current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\",\"description\":\"The city name\"}},\"required\":[\"city\"]}}}],\"tool_choice\":\"auto\"}'"
+url: "{{base_url}}/chat/completions"
+method: POST
+headers:
+  api-key: "{{api-key}}"
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"model\": \"gpt-4o\",\r
+
+    \    \"messages\": [\r
+
+    \        {\r
+
+    \            \"role\": \"user\",\r
+
+    \            \"content\": \"What is the weather in Madrid?\"\r
+
+    \        }\r
+
+    \    ],\r
+
+    \    \"tools\": [\r
+
+    \        {\r
+
+    \            \"type\": \"function\",\r
+
+    \            \"function\": {\r
+
+    \                \"name\": \"get_weather\",\r
+
+    \                \"description\": \"Get the current weather for a city\",\r
+
+    \                \"parameters\": {\r
+
+    \                    \"type\": \"object\",\r
+
+    \                    \"properties\": {\r
+
+    \                        \"city\": {\r
+
+    \                            \"type\": \"string\",\r
+
+    \                            \"description\": \"The city name\"\r
+
+    \                        }\r
+
+    \                    },\r
+
+    \                    \"required\": [\r
+
+    \                        \"city\"\r
+
+    \                    ]\r
+
+    \                }\r
+
+    \            }\r
+
+    \        }\r
+
+    \    ],\r
+
+    \    \"tool_choice\": \"auto\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      })
+
+      pm.test('Response has choices array', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('choices').that.is.an('array').with.length.above(0);
+      })
+
+      pm.test('Finish reason is tool_calls or stop', function () {
+          const json = pm.response.json();
+          const finishReason = json.choices[0].finish_reason;
+          pm.expect([
+              'tool_calls',
+              'stop'
+          ]).to.include(finishReason);
+      })
+
+      pm.test('If tool_calls, tool call has function name', function () {
+          const json = pm.response.json();
+          const choice = json.choices[0];
+          if (choice.finish_reason === 'tool_calls') {
+              pm.expect(choice.message).to.have.property('tool_calls').that.is.an('array').with.length.above(0);
+              pm.expect(choice.message.tool_calls[0]).to.have.property('function');
+              pm.expect(choice.message.tool_calls[0].function).to.have.property('name').that.is.a('string');
+          }
+      })
+
+      pm.test('Response has usage object', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('usage');
+          pm.expect(json.usage).to.have.property('total_tokens').that.is.a('number');
+      })
+    language: text/javascript
+order: 4000

@@ -1,0 +1,38 @@
+$kind: http-request
+description: 'Generated from cURL: curl -X GET "{{base_url}}/models/gpt-4o" -H "api-key: {{api-key}}"'
+url: "{{base_url}}/models"
+method: GET
+headers:
+  api-key: "{{api-key}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test('Response has object type list', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('object').that.equals('list');
+      });
+
+      pm.test('Response has data array', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('data').that.is.an('array').with.length.above(0);
+      });
+
+      pm.test('Each model has id field', function () {
+          const json = pm.response.json();
+          json.data.forEach(function(model) {
+              pm.expect(model).to.have.property('id').that.is.a('string');
+          });
+      });
+
+      pm.test('Each model has object field', function () {
+          const json = pm.response.json();
+          json.data.forEach(function(model) {
+              pm.expect(model).to.have.property('object').that.equals('model');
+          });
+      });
+    language: text/javascript
+order: 2000

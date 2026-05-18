@@ -1,0 +1,8 @@
+workspace:
+  id: 467b1d80-e228-4372-8af3-bc6b3c5e4ac5
+localResources:
+  collections:
+    - ../postman/collections/Hicap v1
+cloudResources:
+  collections:
+    ../postman/collections/Hicap v1: 47581335-b85eedc7-8f71-4880-846b-3a54eed799f2

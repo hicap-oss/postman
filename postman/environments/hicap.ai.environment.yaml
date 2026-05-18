@@ -1,0 +1,6 @@
+name: hicap.ai
+values:
+  - key: api-key
+    value: ''
+  - key: base_url
+    value: ''

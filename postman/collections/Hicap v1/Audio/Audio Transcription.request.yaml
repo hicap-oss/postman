@@ -6,7 +6,8 @@ method: POST
 headers:
   api-key: "{{api-key}}"
 body:
-  type: urlencoded
+  type: json
+  content: ""
 scripts:
   - type: afterResponse
     code: |-

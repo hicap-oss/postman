@@ -1,7 +1,7 @@
 $kind: http-request
 name: Basic Responses
 description: "Generated from cURL: curl -X POST {{base_url}}/v1/responses -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-5.4\",\"input\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
-url: "{{base_url}}/v1/responses"
+url: "{{base_url}}/responses"
 method: POST
 headers:
   api-key: "{{api-key}}"

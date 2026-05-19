@@ -1,18 +1,12 @@
 $kind: http-request
+name: Audio Transcription
 description: 'Generated from cURL: curl -X POST "{{base_url}}/audio/transcriptions" -H "api-key: {{api-key}}" -F "model=whisper-1" -F "language=en" -F "response_format=json" -F "file=@file"'
 url: "{{base_url}}/audio/transcriptions"
 method: POST
 headers:
   api-key: "{{api-key}}"
 body:
-  type: formdata
-  content:
-    - type: text
-      key: model
-      value: gpt-4o
-    - type: text
-      key: file
-      value: ""
+  type: urlencoded
 scripts:
   - type: afterResponse
     code: |-

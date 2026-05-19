@@ -1,4 +1,5 @@
 $kind: http-request
+name: Create Embedding
 description: "Generated from cURL: curl -X POST \"{{base_url}}/embeddings\" -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"text-embedding-ada-002\",\"input\":\"The quick brown fox jumps over the lazy dog\"}'"
 url: "{{base_url}}/embeddings"
 method: POST
@@ -7,7 +8,13 @@ headers:
   Content-Type: application/json
 body:
   type: json
-  content: '{"model":"gpt-4o","input":"The quick brown fox jumps over the lazy dog"}'
+  content: "{\r
+
+    \    \"model\": \"gpt-4o\",\r
+
+    \    \"input\": \"The quick brown fox jumps over the lazy dog\"\r
+
+    }"
 scripts:
   - type: afterResponse
     code: |-

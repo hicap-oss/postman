@@ -1,7 +1,7 @@
 $kind: http-request
-name: Basic Chat Completion
+name: Basic Responses
 description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
-url: "{{base_url}}/v1/chat/completions"
+url: "{{base_url}}/v1/responses"
 method: POST
 headers:
   api-key: "{{api-key}}"
@@ -10,19 +10,19 @@ body:
   type: json
   content: "{\r
 
-    \    \"model\": \"gpt-5.4\",\r
+    \  \"model\": \"gpt-5.4\",\r
 
-    \    \"messages\": [\r
+    \  \"input\": [\r
 
-    \        {\r
+    \    {\r
 
-    \            \"role\": \"user\",\r
+    \      \"role\": \"user\",\r
 
-    \            \"content\": \"Hello!\"\r
+    \      \"content\": \"Hello!\"\r
 
-    \        }\r
+    \    }\r
 
-    \    ]\r
+    \  ]\r
 
     }"
 scripts:
@@ -59,4 +59,4 @@ scripts:
           pm.expect(json).to.have.property('model').that.is.a('string');
       })
     language: text/javascript
-order: 2000
+order: 1656

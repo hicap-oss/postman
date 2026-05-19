@@ -1,4 +1,5 @@
 $kind: http-request
+name: Generate Image
 description: "Generated from cURL: curl -X POST \"{{base_url}}/images/generations\" -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"dall-e-3\",\"prompt\":\"A futuristic city skyline at sunset\",\"n\":1,\"size\":\"1024x1024\",\"quality\":\"standard\",\"response_format\":\"url\"}'"
 url: "{{base_url}}/images/generations"
 method: POST
@@ -7,7 +8,21 @@ headers:
   Content-Type: application/json
 body:
   type: json
-  content: '{"model":"gpt-4o","prompt":"A futuristic city skyline at sunset","n":1,"size":"1024x1024","quality":"standard","response_format":"url"}'
+  content: "{\r
+
+    \    \"model\": \"gpt-4o\",\r
+
+    \    \"prompt\": \"A futuristic city skyline at sunset\",\r
+
+    \    \"n\": 1,\r
+
+    \    \"size\": \"1024x1024\",\r
+
+    \    \"quality\": \"standard\",\r
+
+    \    \"response_format\": \"url\"\r
+
+    }"
 scripts:
   - type: afterResponse
     code: |-

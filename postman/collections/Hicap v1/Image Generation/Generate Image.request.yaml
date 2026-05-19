@@ -10,7 +10,7 @@ body:
   type: json
   content: "{\r
 
-    \    \"model\": \"gpt-4o\",\r
+    \    \"model\": \"dall-e-3\",\r
 
     \    \"prompt\": \"A futuristic city skyline at sunset\",\r
 

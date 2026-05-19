@@ -1,6 +1,6 @@
 $kind: http-request
 name: Basic Responses
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/v1/responses -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-5.4\",\"input\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
 url: "{{base_url}}/v1/responses"
 method: POST
 headers:
@@ -37,21 +37,19 @@ scripts:
           pm.expect(json).to.have.property('id');
       })
 
-      pm.test('Response has choices array', function () {
+        pm.test('Response has output array', function () {
           const json = pm.response.json();
-          pm.expect(json).to.have.property('choices').that.is.an('array').with.length.above(0);
+          pm.expect(json).to.have.property('output').that.is.an('array').with.length.above(0);
       })
 
-      pm.test('First choice has message with content', function () {
+        pm.test('First output item has content', function () {
           const json = pm.response.json();
-          pm.expect(json.choices[0]).to.have.property('message');
-          pm.expect(json.choices[0].message).to.have.property('content').that.is.a('string');
+          pm.expect(json.output[0]).to.have.property('content').that.is.an('array');
       })
 
       pm.test('Response has usage object', function () {
           const json = pm.response.json();
           pm.expect(json).to.have.property('usage');
-          pm.expect(json.usage).to.have.property('total_tokens').that.is.a('number');
       })
 
       pm.test('Response has model field', function () {

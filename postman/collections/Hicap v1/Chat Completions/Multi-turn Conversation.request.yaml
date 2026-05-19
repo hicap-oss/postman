@@ -1,6 +1,6 @@
 $kind: http-request
 name: Multi-turn Conversation
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H
+description: "Generated from cURL: curl -X POST {{base_url}}/v1/chat/completions -H
   \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d
   '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"My name
   is Javier.\"},{\"role\":\"assistant\",\"content\":\"Hello Javier! How can I

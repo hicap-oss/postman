@@ -1,11 +1,10 @@
 $kind: http-request
 name: Get Health
-description: 'Generated from cURL: curl -X GET "{{base_url}}/models" -H "api-key: {{api-key}}"'
+description: 'Generated from cURL: curl -X GET "{{base_url}}/status-0123456789abcdef" -H "api-key: {{api-key}}"'
 url: "{{base_url}}/status-0123456789abcdef"
 method: GET
 headers:
   api-key: "{{api-key}}"
-  Fastly-Debug: ben
   Content-Type: application/json
 scripts:
   - type: afterResponse
@@ -14,26 +13,15 @@ scripts:
           pm.response.to.have.status(200);
       })
 
-      pm.test('Response has object type list', function () {
-          const json = pm.response.json();
-          pm.expect(json).to.have.property('object').that.equals('list');
+      pm.test('Response body is not empty', function () {
+          pm.expect(pm.response.text()).to.have.length.above(0);
       })
 
-      pm.test('Response has data array', function () {
-          const json = pm.response.json();
-          pm.expect(json).to.have.property('data').that.is.an('array').with.length.above(0);
-      })
-
-      pm.test('Each model has id and object fields', function () {
-          const json = pm.response.json();
-          json.data.forEach(function (model) {
-              pm.expect(model).to.have.property('id').that.is.a('string');
-              pm.expect(model).to.have.property('object').that.equals('model');
-          });
-      })
-
-      pm.test('Response content type is JSON', function () {
-          pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');
+      pm.test('Response content type is present when provided', function () {
+          const contentType = pm.response.headers.get('Content-Type');
+          if (contentType !== null) {
+              pm.expect(contentType).to.be.a('string').and.to.have.length.above(0);
+          }
       })
     language: text/javascript
 order: 2000

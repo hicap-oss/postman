@@ -1,6 +1,6 @@
 $kind: http-request
 name: Basic Chat Completion
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/v1/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-5.4\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
 url: "{{base_url}}/v1/chat/completions"
 method: POST
 headers:

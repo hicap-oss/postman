@@ -1,0 +1,2 @@
+postman/environments/*
+!postman/environments/hicap.ai.environment.yaml

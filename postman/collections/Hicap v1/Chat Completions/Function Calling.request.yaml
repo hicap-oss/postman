@@ -1,14 +1,6 @@
 $kind: http-request
 name: Function Calling
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H
-  \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d
-  '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"What is
-  the weather in
-  Madrid?\"}],\"tools\":[{\"type\":\"function\",\"function\":{\"name\":\"get_we\
-  ather\",\"description\":\"Get the current weather for a
-  city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\
-  \"string\",\"description\":\"The city
-  name\"}},\"required\":[\"city\"]}}}],\"tool_choice\":\"auto\"}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"What is the weather in Madrid?\"}],\"tools\":[{\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"description\":\"Get the current weather for a city\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\",\"description\":\"The city name\"}},\"required\":[\"city\"]}}}],\"tool_choice\":\"auto\"}'"
 url: "{{base_url}}/chat/completions"
 method: POST
 headers:
@@ -18,7 +10,7 @@ body:
   type: json
   content: "{\r
 
-    \    \"model\": \"gpt-5.4\",\r
+    \    \"model\": \"gpt-5-mini\",\r
 
     \    \"messages\": [\r
 

@@ -1,10 +1,6 @@
 $kind: http-request
 name: Multi-turn Conversation
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H
-  \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d
-  '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"My name
-  is Javier.\"},{\"role\":\"assistant\",\"content\":\"Hello Javier! How can I
-  help you?\"},{\"role\":\"user\",\"content\":\"What is my name?\"}]}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"user\",\"content\":\"My name is Javier.\"},{\"role\":\"assistant\",\"content\":\"Hello Javier! How can I help you?\"},{\"role\":\"user\",\"content\":\"What is my name?\"}]}'"
 url: "{{base_url}}/chat/completions"
 method: POST
 headers:
@@ -14,7 +10,7 @@ body:
   type: json
   content: "{\r
 
-    \    \"model\": \"gpt-5.4\",\r
+    \    \"model\": \"gpt-5-mini\",\r
 
     \    \"messages\": [\r
 

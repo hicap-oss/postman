@@ -1,10 +1,6 @@
 $kind: http-request
 name: Chat with System Prompt
-description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H
-  \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d
-  '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"system\",\"content\":\"You
-  are a helpful assistant.\"},{\"role\":\"user\",\"content\":\"What is the
-  capital of France?\"}],\"temperature\":0.7,\"max_completion_tokens\":256}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/chat/completions -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-4o\",\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant.\"},{\"role\":\"user\",\"content\":\"What is the capital of France?\"}],\"temperature\":0.7,\"max_completion_tokens\":256}'"
 url: "{{base_url}}/chat/completions"
 method: POST
 headers:
@@ -14,7 +10,7 @@ body:
   type: json
   content: "{\r
 
-    \    \"model\": \"gpt-5.4\",\r
+    \    \"model\": \"gpt-5-mini\",\r
 
     \    \"messages\": [\r
 

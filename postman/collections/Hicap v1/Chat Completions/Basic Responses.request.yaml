@@ -1,6 +1,9 @@
 $kind: http-request
 name: Basic Responses
-description: "Generated from cURL: curl -X POST {{base_url}}/v1/responses -H \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d '{\"model\":\"gpt-5.4\",\"input\":[{\"role\":\"user\",\"content\":\"Hello!\"}]}'"
+description: "Generated from cURL: curl -X POST {{base_url}}/v1/responses -H
+  \"api-key: {{api-key}}\" -H \"Content-Type: application/json\" -d
+  '{\"model\":\"gpt-5.4\",\"input\":[{\"role\":\"user\",\"content\":\"Hello!\"}\
+  ]}'"
 url: "{{base_url}}/responses"
 method: POST
 headers:
@@ -57,4 +60,4 @@ scripts:
           pm.expect(json).to.have.property('model').that.is.a('string');
       })
     language: text/javascript
-order: 1656
+order: 5000
